@@ -1,0 +1,101 @@
+Change default editor to nano --
+
+  add this to ~/.bash_profile:
+  EDITOR=/usr/bin/nano; export EDITOR
+
+  then use this command to activate it:
+  . .bash_profile
+
+
+
+sed : stream EDITOR
+
+
+functions
+
+PRINT JIRA TICKET NUMBER
+function jira(){
+        local SYS;
+        if [[ $(uname) == "Linux" ]]
+        then
+          SYS="-r"
+        elif [[ $(uname) == "Darwin" ]]
+        then
+          SYS="-E"
+        fi
+        git symbolic-ref --short HEAD | sed ${SYS} 's/^([A-Z]+)-([0-9]+)[_-].*/\1-\2/';
+}
+
+
+FETCH ALL
+function FETCH(){
+  echo "Fetching...";
+  local returnDir="$(pwd)";
+  cd "${HOME}/sites" && \
+  pwd && \
+  git fetch --all && \
+  cd "${HOME}/member.abcmouse.com" && \
+  pwd && \
+  git fetch --all && \
+  cd "${HOME}/member.abcmouse.cn" && \
+  pwd && \
+  git fetch --all && \
+  cd "${HOME}/CoreServiceLayer" && \
+  pwd && \
+  git fetch --all && \
+  cd "${HOME}/AbcMouseWebServiceLayer" && \
+  pwd && \
+  git fetch --all && \
+  cd "${HOME}/apis" && \
+  pwd && \
+  git fetch --all;
+  cd "$returnDir";
+  [[ "$1" == '-s' ]] && STATUS;
+}
+FOR LOCAL
+function FETCH(){
+  local returnDir="$(pwd)";
+  local baseDir="${HOME}/Documents/Work";
+  echo && echo "Fetching...";
+  cd "${baseDir}/sites" && echo && \
+  basename "$(pwd)" && \
+  git fetch --all && \
+  cd "${baseDir}/member.abcmouse.com" && echo && \
+  basename "$(pwd)" && \
+  git fetch --all && \
+  cd "${baseDir}/member.abcmouse.cn" && echo && \
+  basename "$(pwd)" && \
+  cd "$returnDir";
+  [[ "$1" == '-s' ]] && STATUS;
+}
+
+STATUS ALL
+function STATUS(){
+  echo "Checking the status...";
+  local returnDir="$(pwd)";
+  cd "${HOME}/sites" && echo && \
+  basename "$(pwd)" && \
+  git status -sb && \
+  cd "${HOME}/member.abcmouse.com" && echo && \
+  basename "$(pwd)" && \
+  git status -sb && \
+  cd "${HOME}/member.abcmouse.cn" && echo && \
+  basename "$(pwd)" && \
+  git status -sb && \
+  cd "${HOME}/CoreServiceLayer" && echo && \
+  basename "$(pwd)" && \
+  git status -sb && \
+  cd "${HOME}/AbcMouseWebServiceLayer" && echo && \
+  basename "$(pwd)" && \
+  git status -sb && \
+  cd "${HOME}/apis" && echo && \
+  basename "$(pwd)" && \
+  git status -sb;
+  cd "$returnDir";
+}
+
+function TEST(){
+  echo "what's your name?";
+  read YOURNAME;
+  echo "Hello, $YOURNAME!";
+}

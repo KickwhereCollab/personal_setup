@@ -1,0 +1,93 @@
+Git commands
+
+##     ## ######## ########   ######   ########
+###   ### ##       ##     ## ##    ##  ##
+#### #### ##       ##     ## ##        ##
+## ### ## ######   ########  ##   #### ######
+##     ## ##       ##   ##   ##    ##  ##
+##     ## ##       ##    ##  ##    ##  ##
+##     ## ######## ##     ##  ######   ########
+
+git merge --no-ff --no-commit -Xignore-all-space <branch>
+  - resolve any conflicts
+  - follow with git commit to complete
+
+git commit --allow-empty -m <msg>
+  - commit without changes
+
+git diff --name-only <branch>
+  - get file paths of changed files
+
+
+ ######  ##     ##    ###    ##    ##  ######   ########  ######
+##    ## ##     ##   ## ##   ###   ## ##    ##  ##       ##    ##
+##       ##     ##  ##   ##  ####  ## ##        ##       ##
+##       ######### ##     ## ## ## ## ##   #### ######    ######
+##       ##     ## ######### ##  #### ##    ##  ##             ##
+##    ## ##     ## ##     ## ##   ### ##    ##  ##       ##    ##
+ ######  ##     ## ##     ## ##    ##  ######   ########  ######
+git reset --hard HEAD^
+  - removing the last commit
+
+git reset --hard HEAD-2
+  - removing the last two commits, you can increase the number to remove more commits
+
+git reset HEAD^
+  - remove commits but leave the working tree(keep the changes for reworking)
+
+ ######  ##       ########    ###    ##    ##    ##     ## ########
+##    ## ##       ##         ## ##   ###   ##    ##     ## ##     ##
+##       ##       ##        ##   ##  ####  ##    ##     ## ##     ##
+##       ##       ######   ##     ## ## ## ##    ##     ## ########
+##       ##       ##       ######### ##  ####    ##     ## ##
+##    ## ##       ##       ##     ## ##   ###    ##     ## ##
+ ######  ######## ######## ##     ## ##    ##     #######  ##
+
+
+MAE SURE YOU WANT TO DELETE YOUR WORK!
+
+git clean -nf
+  - dry run to see what's going to happen
+
+git clean -df
+  - delete files and directories
+
+git reset HEAD --hard
+  - reset changes to tracked files, aka revert everything to the last commit
+
+########  ##     ##  ######  ##     ##
+##     ## ##     ## ##    ## ##     ##
+##     ## ##     ## ##       ##     ##
+########  ##     ##  ######  #########
+##        ##     ##       ## ##     ##
+##        ##     ## ##    ## ##     ##
+##         #######   ######  ##     ##
+
+git push -f origin +<branch>
+  - force push to only one branch, use a + in front of the refspec to push
+
+TO RESET REMOTE BRANCH
+  git push origin :<branch>
+    - pushes empty to remote, essentially deleting the remote branch
+      i.e. <local>:<remote>
+  git push origin <branch>
+    - pushes clean/correct local up to remote
+
+
+
+##     ## ####  ######  ########  #######  ########  ##    ##          ## ##        #######   ######
+##     ##  ##  ##    ##    ##    ##     ## ##     ##  ##  ##          ##  ##       ##     ## ##    ##
+##     ##  ##  ##          ##    ##     ## ##     ##   ####          ##   ##       ##     ## ##
+#########  ##   ######     ##    ##     ## ########     ##          ##    ##       ##     ## ##   ####
+##     ##  ##        ##    ##    ##     ## ##   ##      ##         ##     ##       ##     ## ##    ##
+##     ##  ##  ##    ##    ##    ##     ## ##    ##     ##        ##      ##       ##     ## ##    ##
+##     ## ####  ######     ##     #######  ##     ##    ##       ##       ########  #######   ######
+
+ git rev-parse (--short) <HEAD>/<branch>/<HEAD^>
+ - print hash
+
+ git symbolic-ref (--short) <HEAD>
+ - print current branch
+
+git branch --contain <hash>
+  - can be use to check if your branch has been merged
