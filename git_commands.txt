@@ -8,6 +8,8 @@ Git commands
 ##     ## ##       ##    ##  ##    ##  ##
 ##     ## ######## ##     ##  ######   ########
 
+[!] if there are merge conflicts in a submodule but you cannot see what files has the conflicts running git status, make sure you check out master branch in the submodule, then checkout your branch and resolve merge conflicts after that
+
 git merge --no-ff --no-commit -Xignore-all-space <branch>
   - resolve any conflicts
   - follow with git commit to complete
@@ -17,6 +19,9 @@ git commit --allow-empty -m <msg>
 
 git diff --name-only <branch>
   - get file paths of changed files
+
+[*] to list all branches that a commit has been merged into**
+git branch --contains <commit>
 
 
  ######  ##     ##    ###    ##    ##  ######   ########  ######
@@ -47,13 +52,19 @@ git reset HEAD^
 MAE SURE YOU WANT TO DELETE YOUR WORK!
 
 git clean -nf
-  - dry run to see what's going to happen
+  - dry run to see what's going to happen. -n (dry run)
 
 git clean -df
   - delete files and directories
 
+git clean -fx
+  - remove ignored and non-ignored files
+
 git reset HEAD --hard
   - reset changes to tracked files, aka revert everything to the last commit
+
+find . -name .DS_Store -print0 | xargs -0 git rm --ignore-unmatch
+  - remove any existing files from the repo, skipping over ones not in repo
 
 ########  ##     ##  ######  ##     ##
 ##     ## ##     ## ##    ## ##     ##
@@ -74,7 +85,6 @@ TO RESET REMOTE BRANCH
     - pushes clean/correct local up to remote
 
 
-
 ##     ## ####  ######  ########  #######  ########  ##    ##          ## ##        #######   ######
 ##     ##  ##  ##    ##    ##    ##     ## ##     ##  ##  ##          ##  ##       ##     ## ##    ##
 ##     ##  ##  ##          ##    ##     ## ##     ##   ####          ##   ##       ##     ## ##
@@ -91,3 +101,15 @@ TO RESET REMOTE BRANCH
 
 git branch --contain <hash>
   - can be use to check if your branch has been merged
+
+
+ ######  ##     ## ########  ##     ##  #######  ########  ##     ## ##       ########  ######
+##    ## ##     ## ##     ## ###   ### ##     ## ##     ## ##     ## ##       ##       ##    ##
+##       ##     ## ##     ## #### #### ##     ## ##     ## ##     ## ##       ##       ##
+ ######  ##     ## ########  ## ### ## ##     ## ##     ## ##     ## ##       ######    ######
+      ## ##     ## ##     ## ##     ## ##     ## ##     ## ##     ## ##       ##             ##
+##    ## ##     ## ##     ## ##     ## ##     ## ##     ## ##     ## ##       ##       ##    ##
+ ######   #######  ########  ##     ##  #######  ########   #######  ######## ########  ######
+
+git submodule sync
+  - if the gitmodules file is changed, or first time cloning the repo. Gotta sync up the submodule paths
