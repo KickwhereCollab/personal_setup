@@ -99,3 +99,9 @@ function TEST(){
   read YOURNAME;
   echo "Hello, $YOURNAME!";
 }
+
+
+////// running all build within a directory
+find <directory> -type <f(file)/(directory)> -name <"fileName"> [optional: -exec <action> {} \; ]
+  find . -type f -name __build.js
+  find `pwd` -type f -name __build.js -exec r.js -o {} \;
