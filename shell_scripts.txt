@@ -105,3 +105,42 @@ function TEST(){
 find <directory> -type <f(file)/(directory)> -name <"fileName"> [optional: -exec <action> {} \; ]
   find . -type f -name __build.js
   find `pwd` -type f -name __build.js -exec r.js -o {} \;
+
+
+
+// Cut a new branch and make a clear record in the commit history
+
+function CUTBRANCH () {
+  local NEW_BRANCH="${1}";
+  local BASE_BRANCH="$(git symbolic-ref --short HEAD)";
+  local BASE_HASH="$(git rev-parse --short HEAD)";
+
+  [[ -z $NEW_BRANCH ]]  && echo "Missing NEW_BRANCH"  && return 1;
+  [[ -z $BASE_BRANCH ]] && echo "Missing BASE_BRANCH" && return 1;
+  [[ -z $BASE_HASH ]]   && echo "Missing BASE_HASH"   && return 1;
+
+  # explain resulting commands
+  tput setaf 3; # add colors
+  echo;
+  echo "Will run these git commands:";
+  echo "git checkout -b ${NEW_BRANCH}";
+  echo "git commit --allow-empty -m \"${NEW_BRANCH} cut from ${BASE_BRANCH} (${BASE_HASH})\"";
+  tput sgr0; # remove colors
+
+  # prompt user for confirmation
+  echo;
+  # '-n' and '-p' options are specific to bash's read built-in command, it does not work the same in zsh
+  # undo following line if switching back to bash
+  # read -n 1 -p "Continue? [y/n] " CONFIRMATION;
+  #
+  # below is zsh version, Anything after a '?' in the first argument is used as the prompt string.
+  # You can specify a variable name to read into, which is before the '?'
+  read -k 1 "CONFIRMATION?Continue? [y/n]";
+  echo;
+
+  # execute commands, if permitted
+  if [[ $CONFIRMATION == 'y' ]]; then
+    git checkout -b "${NEW_BRANCH}" && \
+    git commit --allow-empty -m "${NEW_BRANCH} cut from ${BASE_BRANCH} (${BASE_HASH})";
+  fi
+}
