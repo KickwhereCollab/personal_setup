@@ -23,6 +23,8 @@ git diff --name-only <branch>
 [*] to list all branches that a commit has been merged into**
 git branch --contains <commit>
 
+git branch -a --no-merge <branch>
+  - check all (-a) branches that are not merged into the specified branch, if no branch specified, will check against current head.
 
  ######  ##     ##    ###    ##    ##  ######   ########  ######
 ##    ## ##     ##   ## ##   ###   ## ##    ##  ##       ##    ##
@@ -39,6 +41,9 @@ git reset --hard HEAD-2
 
 git reset HEAD^
   - remove commits but leave the working tree(keep the changes for reworking)
+
+git checkout <branch> path/to/file.rad
+  - check out specific file from selected branch and apply it. If want to apply whole commit, use git cherry-pick.
 
  ######  ##       ########    ###    ##    ##    ##     ## ########
 ##    ## ##       ##         ## ##   ###   ##    ##     ## ##     ##
