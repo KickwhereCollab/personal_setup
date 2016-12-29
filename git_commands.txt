@@ -20,8 +20,8 @@ git commit --allow-empty -m <msg>
 git diff --name-only <branch>
   - get file paths of changed files
 
-[*] to list all branches that a commit has been merged into**
 git branch --contains <commit>
+[*] to list all branches that a commit has been merged into**
 
 git branch -a --no-merge <branch>
   - check all (-a) branches that are not merged into the specified branch, if no branch specified, will check against current head.
@@ -54,7 +54,7 @@ git checkout <branch> path/to/file.rad
  ######  ######## ######## ##     ## ##    ##     #######  ##
 
 
-MAE SURE YOU WANT TO DELETE YOUR WORK!
+MAKE SURE YOU WANT TO DELETE YOUR WORK!
 
 git clean -nf
   - dry run to see what's going to happen. -n (dry run)
